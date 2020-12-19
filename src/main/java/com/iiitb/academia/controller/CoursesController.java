@@ -1,6 +1,7 @@
 package com.iiitb.academia.controller;
 
 import com.iiitb.academia.bean.Courses;
+import com.iiitb.academia.bean.Students;
 import com.iiitb.academia.service.CourseService;
 
 import javax.ws.rs.*;
@@ -24,8 +25,9 @@ public class CoursesController {
     @Path("/{courseCode}/students")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStudentsDetails(@PathParam("courseCode") String courseCode) {
-        List<Courses> courses = courseService.getAllCourseDetails();
-        return Response.ok().entity(courses).build();
+        //List<Students> students = courseService.getAllStudentsDetails();
+        //return Response.ok().entity(courses).build();
+        return null;
     }
     @GET
     @Path("/year/{year}/term/{term}")
