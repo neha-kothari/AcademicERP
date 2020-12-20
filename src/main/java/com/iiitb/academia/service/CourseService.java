@@ -1,5 +1,6 @@
 package com.iiitb.academia.service;
 import com.iiitb.academia.bean.Courses;
+import com.iiitb.academia.bean.Student_Courses;
 import com.iiitb.academia.dao.CoursesDAO;
 import com.iiitb.academia.dao.DomainsDAO;
 import com.iiitb.academia.dao.EmployeesDAO;
@@ -39,19 +40,23 @@ public class CourseService {
         return courseDao.fetchCoursesByYearAndTerm(year, term);
     }
 
-    public List<Courses> fetchCoursesByFaculty(String email){
+    public List<Courses> fetchCoursesByFaculty(Integer emp_id){
         EmployeesDAO employeesDAO = new EmployeesDAOImpl();
-        return employeesDAO.getEmployeeByEmailId(email).getCourses();
+        return employeesDAO.getEmployeeDetailsById(emp_id).getCourses();
     }
 
-    public List<Courses> fetchCoursesBySpecialisation(String code){
+    public List<Courses> fetchCoursesBySpecialisation(Integer specialisation_id){
         SpecialisationDAO specialisationDAO = new SpecialisationDAOImpl();
-        return specialisationDAO.getSpecialisationDetailsByCode(code).getCourses();
+        return specialisationDAO.getSpecialisationDetailsById(specialisation_id).getCourses();
     }
 
-//    public List<Courses> fetchCoursesByDomain(String code){
-//        DomainsDAO domainsDAO = new DomainsDAOImpl();
-//        return domainsDAO.getDomainById(code).getCourses();
-//    }
+    public List<Courses> fetchCoursesByDomain(Integer domainId){
+        DomainsDAO domainsDAO = new DomainsDAOImpl();
+        return domainsDAO.getDomainById(domainId).getCourses();
+    }
+
+   /** public List<Student_Courses> getAllStudentsDetails(){
+        courseDao.
+    }*/
 
 }

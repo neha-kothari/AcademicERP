@@ -26,7 +26,7 @@ public class CoursesController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStudentsDetails(@PathParam("courseCode") String courseCode) {
         //List<Students> students = courseService.getAllStudentsDetails();
-        //return Response.ok().entity(courses).build();
+        //return Response.ok().entity(students).build();
         return null;
     }
     @GET
@@ -52,28 +52,27 @@ public class CoursesController {
     }
 
     @GET
-    @Path("/faculty/{email}")
+    @Path("/faculty/{emp_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCoursesByFaculty(@PathParam("email") String email) {
-        List<Courses> courses = courseService.fetchCoursesByFaculty(email);
+    public Response getCoursesByFaculty(@PathParam("emp_id") Integer emp_id) {
+        List<Courses> courses = courseService.fetchCoursesByFaculty(emp_id);
         return Response.ok().entity(courses).build();
     }
 
     @GET
-    @Path("/specialisation/{code}")
+    @Path("/specialisation/{specialisation_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCoursesBySpecialisation(@PathParam("code") String code) {
-        List<Courses> courses = courseService.fetchCoursesBySpecialisation(code);
+    public Response getCoursesBySpecialisation(@PathParam("specialisation_id") Integer specialisation_id) {
+        List<Courses> courses = courseService.fetchCoursesBySpecialisation(specialisation_id);
         return Response.ok().entity(courses).build();
     }
 
     @GET
-    @Path("/domain/{program}")
+    @Path("/domain/{domainId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCoursesByDomain(@PathParam("program") String program) {
-        //List<Courses> courses = courseService.fetchCoursesByDomain(program);
-        //return Response.ok().entity(courses).build();
-        return null;
+    public Response getCoursesByDomain(@PathParam("domainId") Integer domainId) {
+        List<Courses> courses = courseService.fetchCoursesByDomain(domainId);
+        return Response.ok().entity(courses).build();
     }
 
     @GET
