@@ -5,16 +5,6 @@ const filterConfig = {
         fields: [],
         'submitApi': '/courses/all'
     },
-    'all': {
-        label: 'Domain',
-        fields: [
-            {
-                name: 'Domain',
-                populateApi: '/domain/all'
-            },
-        ],
-        'submitApi': '/courses/domains/{0}'
-    },
     'year': {
         label: 'Year',
         fields: [
@@ -163,7 +153,7 @@ async function applyFilter(submitApi, dropdownFields) {
     if (dropdownFields && dropdownFields !== 'null') {
         dropdownFields = dropdownFields.split(',');
         for (let i in dropdownFields) {
-            submitApi.replace(`{${i}}`, dropdownFields[i].value);
+            submitApi = submitApi.replace(`{${i}}`, $(`select[name="${dropdownFields[i]}"]`).val());
         }
     }
     let courseData;
@@ -232,7 +222,16 @@ function init() {
     dataTable.DataTable({
         data: [],
         columns: [
-            {data: 'course_id'},
+            {
+                data: 'course_id',
+                "render": function (data, type, row, meta) {
+                    if (type === 'display') {
+                        data = '<a href="/course/' + data + '/students">' + data + '</a>';
+                    }
+
+                    return data;
+                }
+            },
             {data: 'name'},
             {data: 'description'},
             {data: 'credits'},
