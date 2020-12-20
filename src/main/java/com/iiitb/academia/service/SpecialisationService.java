@@ -12,7 +12,6 @@ public class SpecialisationService {
         public boolean addSpecialisation(Specialisation specialisation) {
             return false;
         }
-
         
         public List<Specialisation> getSpecialisationDetails() {
             return null;
@@ -24,7 +23,6 @@ public class SpecialisationService {
         
         public Specialisation getSpecialisationDetailsByCode(String code) {
             return null;
-        
-    }
+        }
 }
 

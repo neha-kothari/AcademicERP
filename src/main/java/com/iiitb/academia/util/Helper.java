@@ -9,11 +9,11 @@ import java.util.List;
 
 public class Helper {
 
-    public static void main(String[] args) {
+    /**public static void main(String[] args) {
 
         System.out.println("Heyy from helper");
         populateDummyData();
-    }
+    }*/
 
     public static void populateDummyData(){
         populateGrades();

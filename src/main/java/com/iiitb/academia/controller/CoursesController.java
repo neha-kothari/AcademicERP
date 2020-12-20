@@ -3,6 +3,7 @@ package com.iiitb.academia.controller;
 import com.iiitb.academia.bean.Courses;
 import com.iiitb.academia.bean.Student_Courses;
 import com.iiitb.academia.pojo.CourseStudents;
+import com.iiitb.academia.pojo.CoursesPOJO;
 import com.iiitb.academia.service.CourseService;
 
 import javax.ws.rs.*;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Path("courses")
-public class CoursesController {
+public class CoursesController extends CoursesControllerUtil{
     CourseService courseService = new CourseService();
 
     @GET
@@ -21,7 +22,8 @@ public class CoursesController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCourses() {
         List<Courses> courses = courseService.getAllCourseDetails();
-        return Response.ok().entity(courses).build();
+        List<CoursesPOJO> result = mapCoursesBeanToPojo(courses);
+        return Response.ok().entity(result).build();
     }
     @GET
     @Path("/{course_id}/students")
@@ -33,21 +35,6 @@ public class CoursesController {
 
     }
 
-    private List<CourseStudents> mapStudentCoursesBeanToPojo(List<Student_Courses> student_courses) {
-        List<CourseStudents> result = new ArrayList<>();
-
-        for(int i=0; i<student_courses.size(); i++){
-            Student_Courses student_course= student_courses.get(i);
-            CourseStudents cs = new CourseStudents();
-            cs.setRoll_number(student_course.getStudents().getRoll_number());
-            cs.setFirst_name(student_course.getStudents().getFirst_name());
-            cs.setLast_name(student_course.getStudents().getLast_name());
-            cs.setGrade_letter(student_course.getGrade().getLetter_grade());
-            cs.setGrade_points(student_course.getGrade().getGrade_points());
-            result.add(cs);
-        }
-        return result;
-    }
 
     @GET
     @Path("/year/{year}/term/{term}")

@@ -1,9 +1,9 @@
-const mockData = true;
+const mockData = false;
 const filterConfig = {
     'none': {
         label: 'No filter',
         fields: [],
-        'submitApi': '/courses/all'
+        'submitApi': 'api/courses/all'
     },
     'year': {
         label: 'Year',
@@ -13,17 +13,17 @@ const filterConfig = {
                 populateApi: '/year/all'
             },
         ],
-        'submitApi': '/courses/year/{0}'
+        'submitApi': 'api/courses/year/{0}'
     },
     'faculty': {
         label: 'Faculty',
         fields: [
             {
                 name: 'Faculty',
-                populateApi: '/faculty/all'
+                populateApi: 'api/faculty/all'
             },
         ],
-        'submitApi': '/courses/faculty/{0}'
+        'submitApi': 'api/courses/faculty/{0}'
     },
     'capacity': {
         label: 'Capacity',
@@ -33,45 +33,55 @@ const filterConfig = {
                 populateApi: '/capacity/all'
             },
         ],
-        'submitApi': '/courses/capacity/{0}'
+        'submitApi': 'api/courses/capacity/{0}'
+    },
+    'domain': {
+        label: 'Domain',
+        fields: [
+            {
+                name: 'Domain',
+                populateApi: 'api/domains/all'
+            },
+        ],
+        'submitApi': 'api/courses/domains/{0}'
     },
     'specialisation': {
         label: 'Specialisation',
         fields: [
             {
                 name: 'Specialisation',
-                populateApi: '/specialisation/all'
+                populateApi: 'api/specialisation/all'
             },
         ],
-        'submitApi': '/courses/specialisation/{0}'
+        'submitApi': 'api/courses/specialisation/{0}'
     },
     'facultyAndSpecialisation': {
         label: 'Faculty and Specialisation',
         fields: [
             {
                 name: 'Faculty',
-                populateApi: '/faculty/all'
+                populateApi: 'api/faculty/all'
             },
             {
                 name: 'Specialisation',
-                populateApi: '/specialisation/all'
+                populateApi: 'api/specialisation/all'
             },
         ],
-        'submitApi': '/courses/faculty/{0}/specialisation/{1}'
+        'submitApi': 'api/courses/faculty/{0}/specialisation/{1}'
     },
     'domainAndSpecialisation': {
         label: 'Domain and Specialisation',
         fields: [
             {
                 name: 'Domain',
-                populateApi: '/domain/all'
+                populateApi: 'api/domain/all'
             },
             {
                 name: 'Specialisation',
-                populateApi: '/specialisation/all'
+                populateApi: 'api/specialisation/all'
             },
         ],
-        'submitApi': '/courses/domain/{0}/specialisation/{1}'
+        'submitApi': 'api/courses/domain/{0}/specialisation/{1}'
     },
     'yearAndTerm': {
         label: 'Year and Term',
@@ -86,7 +96,7 @@ const filterConfig = {
             },
 
         ],
-        'submitApi': '/courses/year/{0}/term/{1}'
+        'submitApi': 'api/courses/year/{0}/term/{1}'
     },
 };
 const filterByDropdown = document.getElementById("filterBySelector");
@@ -226,7 +236,7 @@ function init() {
                 data: 'course_id',
                 "render": function (data, type, row, meta) {
                     if (type === 'display') {
-                        data = '<a href="/course/' + data + '/students">' + data + '</a>';
+                        data = '<a href="/courses/' + data + '/students">' + data + '</a>';
                     }
 
                     return data;
