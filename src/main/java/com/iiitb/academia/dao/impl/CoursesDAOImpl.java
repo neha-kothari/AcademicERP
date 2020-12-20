@@ -1,6 +1,7 @@
 package com.iiitb.academia.dao.impl;
 
 import com.iiitb.academia.bean.Courses;
+import com.iiitb.academia.bean.Student_Courses;
 import com.iiitb.academia.dao.CoursesDAO;
 import com.iiitb.academia.util.SessionUtil;
 import org.hibernate.HibernateException;
@@ -100,4 +101,5 @@ public class CoursesDAOImpl implements CoursesDAO {
         }
         return courses;
     }
+
 }

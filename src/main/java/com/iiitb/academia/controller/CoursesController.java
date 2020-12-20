@@ -1,13 +1,15 @@
 package com.iiitb.academia.controller;
 
 import com.iiitb.academia.bean.Courses;
-import com.iiitb.academia.bean.Students;
+import com.iiitb.academia.bean.Student_Courses;
+import com.iiitb.academia.pojo.CourseStudents;
 import com.iiitb.academia.service.CourseService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("courses")
@@ -22,13 +24,31 @@ public class CoursesController {
         return Response.ok().entity(courses).build();
     }
     @GET
-    @Path("/{courseCode}/students")
+    @Path("/{course_id}/students")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getStudentsDetails(@PathParam("courseCode") String courseCode) {
-        //List<Students> students = courseService.getAllStudentsDetails();
-        //return Response.ok().entity(students).build();
-        return null;
+    public Response getStudentsDetails(@PathParam("course_id") Integer course_id) {
+        List<Student_Courses> student_courses = courseService.getAllStudentsDetails(course_id);
+        List<CourseStudents> result = mapStudentCoursesBeanToPojo(student_courses);
+        return Response.ok().entity(result).build();
+
     }
+
+    private List<CourseStudents> mapStudentCoursesBeanToPojo(List<Student_Courses> student_courses) {
+        List<CourseStudents> result = new ArrayList<>();
+
+        for(int i=0; i<student_courses.size(); i++){
+            Student_Courses student_course= student_courses.get(i);
+            CourseStudents cs = new CourseStudents();
+            cs.setRoll_number(student_course.getStudents().getRoll_number());
+            cs.setFirst_name(student_course.getStudents().getFirst_name());
+            cs.setLast_name(student_course.getStudents().getLast_name());
+            cs.setGrade_letter(student_course.getGrade().getLetter_grade());
+            cs.setGrade_points(student_course.getGrade().getGrade_points());
+            result.add(cs);
+        }
+        return result;
+    }
+
     @GET
     @Path("/year/{year}/term/{term}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -76,21 +96,19 @@ public class CoursesController {
     }
 
     @GET
-    @Path("/domain/{program}/specialisation/{code}")
+    @Path("/domain/{domainId}/specialisation/{specialisation_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCoursesByDomain(@PathParam("program") String program, @PathParam("code") String code) {
-        //List<Courses> courses = courseService.fetchCoursesByFaculty(email);
-        //return Response.ok().entity(courses).build();
-        return null;
+    public Response getCoursesByDomain(@PathParam("domainId") Integer domainId, @PathParam("specialisation_id") Integer specialisation_id) {
+        List<Courses> courses = courseService.fetchCoursesByDomainAndSpecialisation(domainId, specialisation_id);
+        return Response.ok().entity(courses).build();
     }
 
     @GET
-    @Path("/faculty/{email}/specialisation/{code}")
+    @Path("/faculty/{emp_id}/specialisation/{specialisation_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCoursesByFaculty(@PathParam("email") String email,  @PathParam("code") String code) {
-        //List<Courses> courses = courseService.fetchCoursesByFaculty(email);
-        //return Response.ok().entity(courses).build();
-        return null;
+    public Response getCoursesByFaculty(@PathParam("emp_id") Integer emp_id,  @PathParam("specialisation_id") Integer specialisation_id) {
+        List<Courses> courses = courseService.fetchCoursesByFacultyAndSpecialisation(emp_id, specialisation_id);
+        return Response.ok().entity(courses).build();
     }
 
     @POST

@@ -12,10 +12,14 @@ import com.iiitb.academia.dao.impl.SpecialisationDAOImpl;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CourseService {
 
     CoursesDAO courseDao = new CoursesDAOImpl();
+    DomainsDAO domainsDAO = new DomainsDAOImpl();
+    SpecialisationDAO specialisationDAO = new SpecialisationDAOImpl();
+    EmployeesDAO employeesDAO = new EmployeesDAOImpl();
     public boolean registerCourse(Courses course){
         return courseDao.registerCourse(course);
     }
@@ -41,22 +45,42 @@ public class CourseService {
     }
 
     public List<Courses> fetchCoursesByFaculty(Integer emp_id){
-        EmployeesDAO employeesDAO = new EmployeesDAOImpl();
+
         return employeesDAO.getEmployeeDetailsById(emp_id).getCourses();
     }
 
     public List<Courses> fetchCoursesBySpecialisation(Integer specialisation_id){
-        SpecialisationDAO specialisationDAO = new SpecialisationDAOImpl();
+
         return specialisationDAO.getSpecialisationDetailsById(specialisation_id).getCourses();
     }
 
     public List<Courses> fetchCoursesByDomain(Integer domainId){
-        DomainsDAO domainsDAO = new DomainsDAOImpl();
         return domainsDAO.getDomainById(domainId).getCourses();
     }
 
-   /** public List<Student_Courses> getAllStudentsDetails(){
-        courseDao.
-    }*/
+   public List<Student_Courses> getAllStudentsDetails(Integer course_id) {
+       return courseDao.fetchCourseDetailsById(course_id).getStudent_courses();
+   }
 
+    public List<Courses> fetchCoursesByDomainAndSpecialisation(Integer domainId, Integer specialisation_id) {
+
+        List<Courses> domainSpecific = fetchCoursesByDomain(domainId);
+        List<Courses> specialisationSpecific = fetchCoursesBySpecialisation(specialisation_id);
+        List<Courses> intersectDomainSpecialisation = domainSpecific.stream()
+                .filter(specialisationSpecific::contains)
+                .collect(Collectors.toList());
+        return intersectDomainSpecialisation;
+
+    }
+
+    public List<Courses> fetchCoursesByFacultyAndSpecialisation(Integer emp_id, Integer specialisation_id) {
+
+        List<Courses> facultySpecific = fetchCoursesByFaculty(emp_id);
+        List<Courses> specialisationSpecific = fetchCoursesBySpecialisation(specialisation_id);
+        List<Courses> intersectFacultySpecialisation = facultySpecific.stream()
+                .filter(specialisationSpecific::contains)
+                .collect(Collectors.toList());
+        return intersectFacultySpecialisation;
+
+    }
 }
