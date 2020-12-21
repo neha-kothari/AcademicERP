@@ -20,7 +20,7 @@ const filterConfig = {
         fields: [
             {
                 name: 'Faculty',
-                populateApi: 'api/faculty/all'
+                populateApi: 'api/employee/allpojo'
             },
         ],
         'submitApi': 'api/courses/faculty/{0}'
@@ -30,7 +30,7 @@ const filterConfig = {
         fields: [
             {
                 name: 'Capacity',
-                populateApi: '/capacity/all'
+                populateApi: 'api/courses/capacity'
             },
         ],
         'submitApi': 'api/courses/capacity/{0}'
@@ -50,7 +50,7 @@ const filterConfig = {
         fields: [
             {
                 name: 'Specialisation',
-                populateApi: 'api/specialisation/all'
+                populateApi: 'api/specialisation/allpojo'
             },
         ],
         'submitApi': 'api/courses/specialisation/{0}'
@@ -60,11 +60,11 @@ const filterConfig = {
         fields: [
             {
                 name: 'Faculty',
-                populateApi: 'api/faculty/all'
+                populateApi: 'api/employee/allpojo'
             },
             {
                 name: 'Specialisation',
-                populateApi: 'api/specialisation/all'
+                populateApi: 'api/specialisation/allpojo'
             },
         ],
         'submitApi': 'api/courses/faculty/{0}/specialisation/{1}'
@@ -74,11 +74,11 @@ const filterConfig = {
         fields: [
             {
                 name: 'Domain',
-                populateApi: 'api/domain/all'
+                populateApi: 'api/domains/all'
             },
             {
                 name: 'Specialisation',
-                populateApi: 'api/specialisation/all'
+                populateApi: 'api/specialisation/allpojo'
             },
         ],
         'submitApi': 'api/courses/domain/{0}/specialisation/{1}'
@@ -151,7 +151,7 @@ async function populateDropdown(dropdownField, populateApi) {
     const values = await response.json(); // read response body and parse as JSON
 
     for (let i in values) {
-        optionsAsString += `<option value='${values[i]['id']}'>${values[i]['label']}</option>`;
+        optionsAsString += `<option value='${values[i]['id']}'>${values[i]['label']}</option>`; ///WHAT IS LABEL
     }
     $(`select[name="${dropdownField}"]`).append(optionsAsString);
 }

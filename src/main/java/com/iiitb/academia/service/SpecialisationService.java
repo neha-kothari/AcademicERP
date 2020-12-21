@@ -14,15 +14,15 @@ public class SpecialisationService {
         }
         
         public List<Specialisation> getSpecialisationDetails() {
-            return null;
+            return specialisationDAO.getSpecialisationDetails();
         }
         
         public Specialisation getSpecialisationDetailsById(Integer id) {
-            return null;
+            return specialisationDAO.getSpecialisationDetailsById(id);
         }
         
         public Specialisation getSpecialisationDetailsByCode(String code) {
-            return null;
+            return getSpecialisationDetailsByCode(code);
         }
 }
 

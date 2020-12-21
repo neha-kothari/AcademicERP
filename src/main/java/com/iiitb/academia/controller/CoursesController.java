@@ -43,6 +43,20 @@ public class CoursesController extends CoursesControllerUtil{
         return Response.ok().entity(options).build();
     }
     @GET
+    @Path("/terms")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTerms() {
+        List<Courses> courses = courseService.getAllCourseDetails();
+        List<Integer> terms = courses.stream()
+                .map(course -> course.getTerm())
+                .distinct()
+                .collect(Collectors.toList());
+        List<FilterOptionPojo> options = terms.stream()
+                .map(term -> new FilterOptionPojo(term, String.valueOf(term)))
+                .collect(Collectors.toList());
+        return Response.ok().entity(options).build();
+    }
+    @GET
     @Path("/{course_id}/students")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStudentsDetails(@PathParam("course_id") Integer course_id) {
@@ -106,7 +120,8 @@ public class CoursesController extends CoursesControllerUtil{
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCoursesBySpecialisation(@PathParam("specialisation_id") Integer specialisation_id) {
         List<Courses> courses = courseService.fetchCoursesBySpecialisation(specialisation_id);
-        return Response.ok().entity(courses).build();
+        List<CoursesPOJO> result=mapCoursesBeanToPojo(courses);
+        return Response.ok().entity(result).build();
     }
 
     @GET
