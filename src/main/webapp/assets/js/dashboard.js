@@ -103,7 +103,6 @@ const filterByDropdown = document.getElementById("filterBySelector");
 const dataTable = $('#coursesTbl');
 const datableContainer = $('#data-table-container');
 
-
 function populateFilterOptions() {
     let optionsAsString = "";
     for (let filterKey in filterConfig) {
@@ -212,7 +211,6 @@ async function applyFilter(submitApi, dropdownFields) {
         ]
     } else {
         courseData = await response.json(); // read response body and parse as JSON
-        console.dir(JSON.stringify(courseData));
     }
     populateTable(courseData);
 }
@@ -224,15 +222,23 @@ function populateTable(courseData) {
     datableContainer.show();
 }
 
+function callCourse(course_id){
+    sessionStorage.setItem('course_id', course_id);
+    location.href = "student-details.html";
+    alert(course_id);
+
+}
+
 function init() {
     dataTable.DataTable({
         data: [],
         columns: [
             {
                 data: 'course_id',
+
                 "render": function (data, type, row, meta) {
                     if (type === 'display') {
-                        data = '<a href="/courses/' + data + '/students">' + data + '</a>';
+                      data = '<a data-bs-toggle="modal" data-bs-target="#gradeModal" onclick="callCourse('+data+')">'+ data + '</a>';
                     }
 
                     return data;

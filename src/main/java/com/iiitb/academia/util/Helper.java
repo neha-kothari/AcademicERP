@@ -22,7 +22,11 @@ public class Helper {
         populateDepartments();
         populateEmployees();
         populateCourses();
+        populateStudents();
+        populateStudentCourses();
     }
+
+
 
     public static void populateGrades(){
         Grades g1 = new Grades("A",10,"Outstanding");
@@ -140,6 +144,42 @@ public class Helper {
         coursesDAO.registerCourse(c4);
     }
 
+    private static void populateStudents() {
 
+        DomainsDAO domainsDAO = new DomainsDAOImpl();
+        Domains MtechCSE = domainsDAO.getDomainById(1);
+        Domains MtechECE = domainsDAO.getDomainById(2);
+        Domains MSCSE = domainsDAO.getDomainById(3);
+        Domains MSECE = domainsDAO.getDomainById(4);
+
+        SpecialisationDAO specialisationDAO = new SpecialisationDAOImpl();
+        Specialisation sAI = specialisationDAO.getSpecialisationDetailsById(1);
+        Specialisation sCS = specialisationDAO.getSpecialisationDetailsById(2);
+        Specialisation sNC = specialisationDAO.getSpecialisationDetailsById(3);
+        Specialisation sEC = specialisationDAO.getSpecialisationDetailsById(4);
+
+        CoursesDAO coursesDAO = new CoursesDAOImpl();
+        Courses cAlgo = coursesDAO.fetchCourseDetailsById(1);
+        Courses cSS = coursesDAO.fetchCourseDetailsById(2);
+        Courses cCN = coursesDAO.fetchCourseDetailsById(3);
+        Courses cMML = coursesDAO.fetchCourseDetailsById(4);
+
+            Students s1 = new Students( 1, "Cedric", "Diggory","cedric.diggory@iiitb.org", null, 4.0f, 12, 2020, MtechCSE, sAI, null);
+            Students s2 = new Students( 1, "Harry", "Potter","harry.potter@iiitb.org", null, 3.2f, 8, 2021, MtechECE, sNC, null);
+            Students s3 = new Students( 1, "Ronald", "Weasley","ronald.weasley@iiitb.org", null, 3.0f, 8, 2021, MSECE, sEC, null);
+            Students s4 = new Students( 1, "Neville", "Longbottom","neville.longbottom@iiitb.org", null, 3.1f, 4, 2022, MSCSE, sCS, null);
+            //not adding Hermione because she would be a student at IIT-Bombay and not IIIT-B
+            StudentDAO studentDAO = new StudentDAOImpl();
+            studentDAO.addStudent(s1);
+            studentDAO.addStudent(s2);
+            studentDAO.addStudent(s3);
+            studentDAO.addStudent(s4);
+
+            //Student_Courses sc1 = new Student_Courses(s1, c1, g1, "Excellent");
+    }
+
+    private static void populateStudentCourses(){
+
+    }
 
 }

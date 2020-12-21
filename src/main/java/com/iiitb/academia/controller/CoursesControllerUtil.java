@@ -8,7 +8,6 @@ import com.iiitb.academia.bean.Specialisation;
 import com.iiitb.academia.pojo.CourseStudents;
 import com.iiitb.academia.pojo.CoursesPOJO;
 
-import javax.json.bind.annotation.JsonbTransient;
 import java.util.ArrayList;
 import java.util.List;
 

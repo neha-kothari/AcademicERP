@@ -11,6 +11,7 @@ import com.iiitb.academia.dao.impl.EmployeesDAOImpl;
 import com.iiitb.academia.dao.impl.SpecialisationDAOImpl;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,32 +65,34 @@ public class CourseService {
 
     public List<Courses> fetchCoursesByDomainAndSpecialisation(Integer domainId, Integer specialisation_id) {
 
-        List<Courses> domainSpecific = fetchCoursesByDomain(domainId);
-        List<Courses> specialisationSpecific = fetchCoursesBySpecialisation(specialisation_id);
-        //domainSpecific.retainAll (specialisationSpecific);
+        List<Courses> domainSpecificList = fetchCoursesByDomain(domainId);
+        List<Courses> specialisationSpecificList = fetchCoursesBySpecialisation(specialisation_id);
+        List<Courses> intersectDomainSpecialisation = new ArrayList();
+        for(Courses domainSpecific : domainSpecificList){
+            for(Courses specialisationSpecific : specialisationSpecificList){
+                if(domainSpecific.getCourse_id().equals(specialisationSpecific.getCourse_id())){
 
-        List<Courses> intersectDomainSpecialisation = domainSpecific.stream()
-                .filter(specialisationSpecific::contains)
-                .collect(Collectors.toList());
+                }
+            }
 
-//        List<Courses> intersect = domainSpecific.stream()
-//                .filter(os -> specialisationSpecific.stream()                    // filter
-//                        .anyMatch(ns ->                                  // compare both
-//                                os.getName().equals(ns.getName() &&         // name
-//                                        os.getLastName().equals(ns.getLastName()))) // last name
-//                        .collect(Collectors.toList());
+        }
         return intersectDomainSpecialisation;
 
     }
 
     public List<Courses> fetchCoursesByFacultyAndSpecialisation(Integer emp_id, Integer specialisation_id) {
 
-        List<Courses> facultySpecific = fetchCoursesByFaculty(emp_id);
-        List<Courses> specialisationSpecific = fetchCoursesBySpecialisation(specialisation_id);
-        List<Courses> intersectFacultySpecialisation = facultySpecific.stream()
-                .filter(specialisationSpecific::contains)
-                .collect(Collectors.toList());
+        List<Courses> facultySpecificList = fetchCoursesByFaculty(emp_id);
+        List<Courses> specialisationSpecificList = fetchCoursesBySpecialisation(specialisation_id);
+        List<Courses> intersectFacultySpecialisation = new ArrayList<>();
+        for(Courses facultySpecific : facultySpecificList){
+            for(Courses specialisationSpecific : specialisationSpecificList){
+                if(specialisationSpecific.getCourse_id().equals(facultySpecific.getCourse_id())){
+                    intersectFacultySpecialisation.add(specialisationSpecific);
+                }
+            }
+        }
         return intersectFacultySpecialisation;
 
     }
-}
+    }

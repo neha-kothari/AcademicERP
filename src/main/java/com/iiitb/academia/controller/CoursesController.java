@@ -11,8 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URISyntaxException;
-import java.time.Year;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -148,7 +147,8 @@ public class CoursesController extends CoursesControllerUtil{
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCoursesByFaculty(@PathParam("emp_id") Integer emp_id,  @PathParam("specialisation_id") Integer specialisation_id) {
         List<Courses> courses = courseService.fetchCoursesByFacultyAndSpecialisation(emp_id, specialisation_id);
-        return Response.ok().entity(courses).build();
+        List<CoursesPOJO> result = mapCoursesBeanToPojo(courses);
+        return Response.ok().entity(result).build();
     }
 
     @POST
