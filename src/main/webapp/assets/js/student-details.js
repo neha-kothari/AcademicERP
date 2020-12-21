@@ -24,10 +24,11 @@ function init() {
         data: [],
         columns: [
             {data: 'roll_number'},
-            {data: 'first_name'},
-            {data: 'last_name'},
+            {data: 'full_name'},
             {data: 'grade_letter'},
             {data: 'grade_points'},
+            {data: 'grade_points'},
+            {data: 'cgpa'},
         ]
     });
     fetchStudentsGrades();

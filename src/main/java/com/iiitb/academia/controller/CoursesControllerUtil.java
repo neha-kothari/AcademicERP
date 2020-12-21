@@ -20,10 +20,10 @@ public class CoursesControllerUtil {
             Student_Courses student_course= student_courses.get(i);
             CourseStudents cs = new CourseStudents();
             cs.setRoll_number(student_course.getStudents().getRoll_number());
-            cs.setFirst_name(student_course.getStudents().getFirst_name());
-            cs.setLast_name(student_course.getStudents().getLast_name());
+            cs.setFull_name(student_course.getStudents().getFirst_name()+ " " +student_course.getStudents().getLast_name());
             cs.setGrade_letter(student_course.getGrade().getLetter_grade());
             cs.setGrade_points(student_course.getGrade().getGrade_points());
+            cs.setCgpa(student_course.getStudents().getCgpa());
             result.add(cs);
         }
         return result;
