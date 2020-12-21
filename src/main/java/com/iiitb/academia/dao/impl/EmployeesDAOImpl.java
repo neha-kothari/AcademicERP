@@ -43,7 +43,8 @@ public class EmployeesDAOImpl implements EmployeesDAO {
 
     @Override
     public Employees getEmployeeDetailsById(Integer id) {
-        try (Session session = SessionUtil.getSession()) {
+        Session session = SessionUtil.getSession();
+        try {
             return session.get(Employees.class, id);
         } catch (HibernateException exception) {
             System.out.print(exception.getLocalizedMessage());
@@ -53,7 +54,8 @@ public class EmployeesDAOImpl implements EmployeesDAO {
 
     @Override
     public Employees getEmployeeByEmailId(String email) {
-        try (Session session = SessionUtil.getSession()) {
+        Session session = SessionUtil.getSession();
+        try {
             Query query = session.createQuery("from Employees where email like :email");
             query.setParameter("email", email);
             for (final Object fetch : query.list()) {

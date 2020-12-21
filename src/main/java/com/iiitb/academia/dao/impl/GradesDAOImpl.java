@@ -41,7 +41,8 @@ public class GradesDAOImpl implements GradesDAO {
 
     @Override
     public Grades getGradeDetailsById(Integer id) {
-        try (Session session = SessionUtil.getSession()) {
+        Session session = SessionUtil.getSession();
+        try {
             return session.get(Grades.class, id);
         } catch (HibernateException exception) {
             System.out.print(exception.getLocalizedMessage());

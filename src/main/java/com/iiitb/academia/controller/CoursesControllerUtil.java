@@ -8,6 +8,7 @@ import com.iiitb.academia.bean.Specialisation;
 import com.iiitb.academia.pojo.CourseStudents;
 import com.iiitb.academia.pojo.CoursesPOJO;
 
+import javax.json.bind.annotation.JsonbTransient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class CoursesControllerUtil {
         }
         return result;
     }
-
+    //@JsonbTransient
     public List<CoursesPOJO> mapCoursesBeanToPojo(List<Courses> courses) {
 
         List<CoursesPOJO> result = new ArrayList<>();
@@ -60,8 +61,11 @@ public class CoursesControllerUtil {
     private void setDomains(CoursesPOJO cs, List<Domains> domains) {
 
         StringBuilder domainsString = new StringBuilder();
+        System.out.println("Printing domains-size::"+domains.size());
         for(Domains d : domains){
+            System.out.println("Printing::"+d.getProgram());
             domainsString.append(d.getProgram() + "-"+d.getBatch()+", ");
+
         }
         int len = domainsString.length();
         cs.setDomains(domainsString.substring(0, len-2));

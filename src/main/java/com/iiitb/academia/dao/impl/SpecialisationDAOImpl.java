@@ -41,7 +41,8 @@ public class SpecialisationDAOImpl implements SpecialisationDAO {
 
     @Override
     public Specialisation getSpecialisationDetailsById(Integer id) {
-        try (Session session = SessionUtil.getSession()) {
+        Session session = SessionUtil.getSession();
+        try {
             return session.get(Specialisation.class, id);
         } catch (HibernateException exception) {
             System.out.print(exception.getLocalizedMessage());
@@ -51,7 +52,8 @@ public class SpecialisationDAOImpl implements SpecialisationDAO {
 
     @Override
     public Specialisation getSpecialisationDetailsByCode(String code) {
-        try (Session session = SessionUtil.getSession()) {
+        Session session = SessionUtil.getSession();
+        try {
             Query query = session.createQuery("from Specialisation where code like :code");
             query.setParameter("code", code);
             for (final Object fetch : query.list()) {

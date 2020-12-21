@@ -124,13 +124,13 @@ public class Helper {
         sCSList.add(sCS);
         sCSList.add(sNC);
 
-        Courses c1 = new Courses("Algorithms","Algorithms",4,1, "CS511",2020, 200, e2,
+        Courses c1 = new Courses("Algorithms","Algorithms",4,1, "CS511",2021, 200, e2,
                 null, domainsCSE,sCSList);
         Courses c2 = new Courses("System Software","Software Systems - I",2,1, "CS513",2020, 200, e3,
                 null, domainsECE,sECList);
         Courses c3 = new Courses("Computer Networks-I","Basics of Computer Networks",4,1, "NC501",2020, 100, e1,
                 null, domainsECE,sECList);
-        Courses c4 = new Courses("Maths for Machine Learning","Probability",2,1, "AI512",2020, 200, e4,
+        Courses c4 = new Courses("Maths for Machine Learning","Probability",2,1, "AI512",2022, 200, e4,
                 null, domainsCSE,sAIList);
 
         CoursesDAO coursesDAO = new CoursesDAOImpl();

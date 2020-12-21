@@ -40,7 +40,8 @@ public class DepartmentsDAOImpl implements DepartmentsDAO {
 
     @Override
     public Departments getDepartmentById(Integer id) {
-        try (Session session = SessionUtil.getSession()) {
+        Session session = SessionUtil.getSession();
+        try {
             return session.get(Departments.class, id);
         } catch (HibernateException exception) {
             System.out.print(exception.getLocalizedMessage());

@@ -42,7 +42,8 @@ public class CoursesDAOImpl implements CoursesDAO {
 
     @Override
     public Courses fetchCourseDetailsById(Integer id) {
-        try (Session session = SessionUtil.getSession()) {
+        Session session = SessionUtil.getSession();
+        try {
             return session.get(Courses.class, id);
         } catch (HibernateException exception) {
             System.out.print(exception.getLocalizedMessage());
@@ -52,9 +53,9 @@ public class CoursesDAOImpl implements CoursesDAO {
 
     @Override
     public List<Courses> fetchCoursesByCapacity(Integer capacity) {
+        Session session = SessionUtil.getSession();
         List<Courses> courses = new ArrayList<>();
-        try (Session session = SessionUtil.getSession()) {
-
+        try {
             Query query = session.createQuery("from Courses where capacity=:capacity");
             query.setParameter("capacity", capacity);
             for (final Object course : query.list()) {
@@ -62,33 +63,32 @@ public class CoursesDAOImpl implements CoursesDAO {
             }
         } catch (HibernateException exception) {
             System.out.print(exception.getLocalizedMessage());
-            return null;
         }
         return courses;
     }
 
     @Override
     public List<Courses> fetchCoursesByYear(Integer year) {
+        Session session = SessionUtil.getSession();
         List<Courses> courses = new ArrayList<>();
-        try (Session session = SessionUtil.getSession()) {
-
+        try {
             Query query = session.createQuery("from Courses where year=:year");
             query.setParameter("year", year);
             for (final Object course : query.list()) {
-                courses.add((Courses) course);
+                Courses temp = (Courses) course;
+                courses.add(temp);
             }
         } catch (HibernateException exception) {
             System.out.print(exception.getLocalizedMessage());
-            return null;
         }
         return courses;
     }
 
     @Override
     public List<Courses> fetchCoursesByYearAndTerm(Integer year, Integer term) {
+        Session session = SessionUtil.getSession();
         List<Courses> courses = new ArrayList<>();
-        try (Session session = SessionUtil.getSession()) {
-
+        try {
             Query query = session.createQuery("from Courses where year=:year and term:=term");
             query.setParameter("year", year);
             query.setParameter("term", term);
@@ -97,7 +97,6 @@ public class CoursesDAOImpl implements CoursesDAO {
             }
         } catch (HibernateException exception) {
             System.out.print(exception.getLocalizedMessage());
-            return null;
         }
         return courses;
     }

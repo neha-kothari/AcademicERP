@@ -65,7 +65,8 @@ public class CoursesController extends CoursesControllerUtil{
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCoursesByYear(@PathParam("year") Integer year) {
         List<Courses> courses = courseService.fetchCoursesByYear(year);
-        return Response.ok().entity(courses).build();
+        List<CoursesPOJO> result = mapCoursesBeanToPojo(courses);
+        return Response.ok().entity(result).build();
     }
     @GET
     @Path("/capacity/{capacity}")
@@ -80,7 +81,8 @@ public class CoursesController extends CoursesControllerUtil{
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCoursesByFaculty(@PathParam("emp_id") Integer emp_id) {
         List<Courses> courses = courseService.fetchCoursesByFaculty(emp_id);
-        return Response.ok().entity(courses).build();
+        List<CoursesPOJO> result = mapCoursesBeanToPojo(courses);
+        return Response.ok().entity(result).build();
     }
 
     @GET
@@ -96,7 +98,8 @@ public class CoursesController extends CoursesControllerUtil{
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCoursesByDomain(@PathParam("domainId") Integer domainId) {
         List<Courses> courses = courseService.fetchCoursesByDomain(domainId);
-        return Response.ok().entity(courses).build();
+        List<CoursesPOJO> result = mapCoursesBeanToPojo(courses);
+        return Response.ok().entity(result).build();
     }
 
     @GET
