@@ -69,11 +69,27 @@ public class CoursesController extends CoursesControllerUtil{
         return Response.ok().entity(result).build();
     }
     @GET
+    @Path("/capacity")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCapacity() {
+        List<Courses> courses = courseService.getAllCourseDetails();
+        List<Integer> capacity = courses.stream()
+                .map(course -> course.getCapacity())
+                .distinct()
+                .collect(Collectors.toList());
+        List<FilterOptionPojo> options = capacity.stream()
+                .map(capacity1 -> new FilterOptionPojo(capacity1, String.valueOf(capacity1)))
+                .collect(Collectors.toList());
+
+        return Response.ok().entity(options).build();
+    }
+    @GET
     @Path("/capacity/{capacity}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCoursesByCapacity(@PathParam("capacity") Integer capacity) {
         List<Courses> courses = courseService.fetchCoursesByCapacity(capacity);
-        return Response.ok().entity(courses).build();
+        List<CoursesPOJO> result = mapCoursesBeanToPojo(courses);
+        return Response.ok().entity(result).build();
     }
 
     @GET
