@@ -223,9 +223,21 @@ function populateTable(courseData) {
 }
 
 function callCourse(course_id){
-    sessionStorage.setItem('course_id', course_id);
-    location.href = "student-details.html";
-    alert(course_id);
+    //sessionStorage.setItem('course_id', course_id);
+    fetchStudentsGrades(course_id);
+    // location.href = "student-details.html";
+    //alert(course_id);
+}
+
+async function fetchStudentsGrades(course_id) {
+    //console.log(course_id);
+    //alert(course_id);
+    let studentData;
+    let response = await fetch("/api/courses/"+course_id+"/students").catch(err => {
+        console.log(err)
+    });
+    studentData = await response.json(); // read response body and parse as JSON
+    populateTable(studentData);
 }
 
 
@@ -235,10 +247,9 @@ function init() {
         columns: [
             {
                 data: 'course_id',
-
                 "render": function (data, type, row, meta) {
                     if (type === 'display') {
-                      data = '<a data-bs-toggle="modal" data-bs-target="#gradeModal" onclick="callCourse('+data+')">'+ data + '</a>';
+                      data = '<a data-toggle="modal" data-target="#gradeModal" onclick="callCourse('+data+')">'+ data + '</a>';
                     }
 
                     return data;
