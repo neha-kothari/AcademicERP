@@ -71,7 +71,7 @@ public class CourseService {
         for(Courses domainSpecific : domainSpecificList){
             for(Courses specialisationSpecific : specialisationSpecificList){
                 if(domainSpecific.getCourse_id().equals(specialisationSpecific.getCourse_id())){
-
+                    intersectDomainSpecialisation.add(domainSpecific);
                 }
             }
 
