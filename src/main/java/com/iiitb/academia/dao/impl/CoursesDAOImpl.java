@@ -3,6 +3,7 @@ package com.iiitb.academia.dao.impl;
 import com.iiitb.academia.bean.Courses;
 import com.iiitb.academia.bean.Student_Courses;
 import com.iiitb.academia.dao.CoursesDAO;
+import com.iiitb.academia.pojo.CoursesPOJO;
 import com.iiitb.academia.util.SessionUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -89,7 +90,7 @@ public class CoursesDAOImpl implements CoursesDAO {
         Session session = SessionUtil.getSession();
         List<Courses> courses = new ArrayList<>();
         try {
-            Query query = session.createQuery("from Courses where year=:year and term:=term");
+            Query query = session.createQuery("from Courses where year=:year and term=:term");
             query.setParameter("year", year);
             query.setParameter("term", term);
             for (final Object course : query.list()) {
@@ -98,6 +99,7 @@ public class CoursesDAOImpl implements CoursesDAO {
         } catch (HibernateException exception) {
             System.out.print(exception.getLocalizedMessage());
         }
+
         return courses;
     }
 

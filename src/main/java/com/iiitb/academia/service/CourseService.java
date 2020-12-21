@@ -66,9 +66,18 @@ public class CourseService {
 
         List<Courses> domainSpecific = fetchCoursesByDomain(domainId);
         List<Courses> specialisationSpecific = fetchCoursesBySpecialisation(specialisation_id);
+        //domainSpecific.retainAll (specialisationSpecific);
+
         List<Courses> intersectDomainSpecialisation = domainSpecific.stream()
                 .filter(specialisationSpecific::contains)
                 .collect(Collectors.toList());
+
+//        List<Courses> intersect = domainSpecific.stream()
+//                .filter(os -> specialisationSpecific.stream()                    // filter
+//                        .anyMatch(ns ->                                  // compare both
+//                                os.getName().equals(ns.getName() &&         // name
+//                                        os.getLastName().equals(ns.getLastName()))) // last name
+//                        .collect(Collectors.toList());
         return intersectDomainSpecialisation;
 
     }
