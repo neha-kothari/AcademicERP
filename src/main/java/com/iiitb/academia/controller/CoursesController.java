@@ -4,14 +4,17 @@ import com.iiitb.academia.bean.Courses;
 import com.iiitb.academia.bean.Student_Courses;
 import com.iiitb.academia.pojo.CourseStudents;
 import com.iiitb.academia.pojo.CoursesPOJO;
+import com.iiitb.academia.pojo.FilterOptionPojo;
 import com.iiitb.academia.service.CourseService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URISyntaxException;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("courses")
 public class CoursesController extends CoursesControllerUtil{
@@ -24,6 +27,20 @@ public class CoursesController extends CoursesControllerUtil{
         List<Courses> courses = courseService.getAllCourseDetails();
         List<CoursesPOJO> result = mapCoursesBeanToPojo(courses);
         return Response.ok().entity(result).build();
+    }
+    @GET
+    @Path("/years")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getYears() {
+        List<Courses> courses = courseService.getAllCourseDetails();
+        List<Integer> years = courses.stream()
+                .map(course -> course.getYear())
+                .distinct()
+                .collect(Collectors.toList());
+        List<FilterOptionPojo> options = years.stream()
+                .map(year -> new FilterOptionPojo(year, String.valueOf(year)))
+                .collect(Collectors.toList());
+        return Response.ok().entity(options).build();
     }
     @GET
     @Path("/{course_id}/students")

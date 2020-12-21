@@ -10,7 +10,7 @@ const filterConfig = {
         fields: [
             {
                 name: 'Year',
-                populateApi: '/year/all'
+                populateApi: 'api/courses/years'
             },
         ],
         'submitApi': 'api/courses/year/{0}'
@@ -88,11 +88,11 @@ const filterConfig = {
         fields: [
             {
                 name: 'Year',
-                populateApi: '/year/all'
+                populateApi: 'api/courses/years'
             },
             {
                 name: 'Term',
-                populateApi: '/term/all'
+                populateApi: 'api/courses/terms'
             },
 
         ],
@@ -143,17 +143,14 @@ function showFilterFields() {
 
 async function populateDropdown(dropdownField, populateApi) {
     let optionsAsString = "";
-    let values;
     let response = await fetch(populateApi).catch(err => {
         console.log(err)
     });
-    if (mockData) {
-        values = ['a', 'b', 'c', 'd']
-    } else {
-        values = await response.json(); // read response body and parse as JSON
-    }
+
+    const values = await response.json(); // read response body and parse as JSON
+
     for (let i in values) {
-        optionsAsString += `<option value='${values[i]}'>${values[i]}</option>`;
+        optionsAsString += `<option value='${values[i]['id']}'>${values[i]['label']}</option>`;
     }
     $(`select[name="${dropdownField}"]`).append(optionsAsString);
 }
@@ -181,8 +178,7 @@ async function applyFilter(submitApi, dropdownFields) {
                 course_code: 'Code 1',
                 year: '2021',
                 capacity: '101',
-                employee_id: '1,2,3,11',
-                student_courses: '3,2,1,11',
+                faculty_name: '1,2,3,11',
                 domains: 'D3, D2, D11',
                 specialisations: 'S3, S2, S1'
             },
@@ -195,8 +191,7 @@ async function applyFilter(submitApi, dropdownFields) {
                 course_code: 'Code 2',
                 year: '2022',
                 capacity: '102',
-                employee_id: '1,2,3,12',
-                student_courses: '3,2,1,12',
+                faculty_name: '1,2,3,12',
                 domains: 'D3, D2, D12',
                 specialisations: 'S3, S2, S2'
             },
@@ -209,14 +204,14 @@ async function applyFilter(submitApi, dropdownFields) {
                 course_code: 'Code 3',
                 year: '2023',
                 capacity: '103',
-                employee_id: '1,2,3,13',
-                student_courses: '3,2,1,13',
+                faculty_name: '1,2,3,13',
                 domains: 'D3, D2, D13',
                 specialisations: 'S3, S2, S3'
             }
         ]
     } else {
         courseData = await response.json(); // read response body and parse as JSON
+        console.dir(JSON.stringify(courseData));
     }
     populateTable(courseData);
 }
@@ -249,8 +244,7 @@ function init() {
             {data: 'course_code'},
             {data: 'year'},
             {data: 'capacity'},
-            {data: 'employee_id'},
-            {data: 'student_courses'},
+            {data: 'faculty_name'},
             {data: 'domains'},
             {data: 'specialisations'},
         ]
