@@ -226,8 +226,8 @@ function callCourse(course_id){
     sessionStorage.setItem('course_id', course_id);
     location.href = "student-details.html";
     alert(course_id);
-
 }
+
 
 function init() {
     dataTable.DataTable({
