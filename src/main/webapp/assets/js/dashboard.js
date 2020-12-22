@@ -1,4 +1,3 @@
-const mockData = false;
 const filterConfig = {
     'none': {
         label: 'No filter',
@@ -20,7 +19,7 @@ const filterConfig = {
         fields: [
             {
                 name: 'Faculty',
-                populateApi: 'api/employee/allpojo'
+                populateApi: 'api/employee/options'
             },
         ],
         'submitApi': 'api/courses/faculty/{0}'
@@ -50,7 +49,7 @@ const filterConfig = {
         fields: [
             {
                 name: 'Specialisation',
-                populateApi: 'api/specialisation/allpojo'
+                populateApi: 'api/specialisation/options'
             },
         ],
         'submitApi': 'api/courses/specialisation/{0}'
@@ -60,11 +59,11 @@ const filterConfig = {
         fields: [
             {
                 name: 'Faculty',
-                populateApi: 'api/employee/allpojo'
+                populateApi: 'api/employee/options'
             },
             {
                 name: 'Specialisation',
-                populateApi: 'api/specialisation/allpojo'
+                populateApi: 'api/specialisation/options'
             },
         ],
         'submitApi': 'api/courses/faculty/{0}/specialisation/{1}'
@@ -78,7 +77,7 @@ const filterConfig = {
             },
             {
                 name: 'Specialisation',
-                populateApi: 'api/specialisation/allpojo'
+                populateApi: 'api/specialisation/options'
             },
         ],
         'submitApi': 'api/courses/domain/{0}/specialisation/{1}'
@@ -102,7 +101,7 @@ const filterConfig = {
 const filterByDropdown = document.getElementById("filterBySelector");
 const dataTable = $('#coursesTbl');
 const datableContainer = $('#data-table-container');
-
+const studentTable = $('#studentsTbl');
 function populateFilterOptions() {
     let optionsAsString = "";
     for (let filterKey in filterConfig) {
@@ -180,23 +179,25 @@ function populateTable(courseData) {
 }
 
 function callCourse(course_id){
-    //sessionStorage.setItem('course_id', course_id);
+
     fetchStudentsGrades(course_id);
-    // location.href = "student-details.html";
-    //alert(course_id);
 }
 
 async function fetchStudentsGrades(course_id) {
-    //console.log(course_id);
-    //alert(course_id);
+
     let studentData;
     let response = await fetch("api/courses/"+course_id+"/students").catch(err => {
         console.log(err)
     });
     studentData = await response.json(); // read response body and parse as JSON
-    populateTable(studentData);
+    populateStudentTable(studentData);
 }
 
+function populateStudentTable(studentData) {
+    studentTable.DataTable().clear();
+    studentTable.DataTable().rows.add(studentData);
+    studentTable.DataTable().draw();
+}
 
 function init() {
     dataTable.DataTable({
@@ -224,6 +225,18 @@ function init() {
             {data: 'specialisations'},
         ]
     });
+
+    studentTable.DataTable({
+        data: [],
+        columns: [
+            {data: 'roll_number'},
+            {data: 'full_name'},
+            {data: 'grade_letter'},
+            {data: 'grade_points'},
+            {data: 'cgpa'},
+        ]
+    });
+
     datableContainer.hide();
     populateFilterOptions();
     showFilterFields();

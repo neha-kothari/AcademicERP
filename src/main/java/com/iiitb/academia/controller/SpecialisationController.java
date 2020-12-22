@@ -1,6 +1,5 @@
 package com.iiitb.academia.controller;
 
-import com.iiitb.academia.bean.Domains;
 import com.iiitb.academia.bean.Specialisation;
 import com.iiitb.academia.pojo.FilterOptionPojo;
 import com.iiitb.academia.service.SpecialisationService;
@@ -44,9 +43,9 @@ public class SpecialisationController {
         return Response.ok().entity(specialisation).build();
     }
     @GET
-    @Path("/allpojo")
+    @Path("/options")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getSpecialisationpojo() {
+    public Response getSpecialisationPojo() {
         List<Specialisation> specialisations = specialisationService.getSpecialisationDetails();
         List<FilterOptionPojo> options = specialisations.stream()
                 .map(specialisation-> new FilterOptionPojo(specialisation.getSpecialisation_id(), specialisation.getName() + " "))

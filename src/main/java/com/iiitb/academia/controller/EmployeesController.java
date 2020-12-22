@@ -1,7 +1,5 @@
 package com.iiitb.academia.controller;
 
-import com.iiitb.academia.bean.Courses;
-import com.iiitb.academia.bean.Domains;
 import com.iiitb.academia.bean.Employees;
 import com.iiitb.academia.pojo.FilterOptionPojo;
 import com.iiitb.academia.service.EmployeesService;
@@ -47,7 +45,7 @@ public class EmployeesController {
     }
 
     @GET
-    @Path("/allpojo")
+    @Path("/options")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployeePojo() {
         List<Employees> employees = employeesService.getAllEmployeeDetails();

@@ -9,12 +9,12 @@ import java.util.List;
 
 public class Helper {
 
-    public static void main(String[] args) {
+    /**public static void main(String[] args) {
 
         System.out.println("Heyy from helper");
-        populateStudentCourses();
-        //populateDummyData();
-    }
+        //populateStudentCourses();
+        populateDummyData();
+    }*/
 
     public static void populateDummyData(){
         populateGrades();
@@ -184,9 +184,9 @@ public class Helper {
 
         StudentDAO studentDAO= new StudentDAOImpl();
         Students s1=studentDAO.fetchStudentDetailsById(1);
-        Students s2=studentDAO.fetchStudentDetailsById(8);
-        Students s3=studentDAO.fetchStudentDetailsById(9);
-        Students s4=studentDAO.fetchStudentDetailsById(10);
+        Students s2=studentDAO.fetchStudentDetailsById(2);
+        Students s3=studentDAO.fetchStudentDetailsById(3);
+        Students s4=studentDAO.fetchStudentDetailsById(4);
 
         CoursesDAO coursesDAO = new CoursesDAOImpl();
         Courses cAlgo = coursesDAO.fetchCourseDetailsById(1);
@@ -218,12 +218,6 @@ public class Helper {
         student_coursesDAO.addStudentCourses(sc4);
         student_coursesDAO.addStudentCourses(sc5);
         student_coursesDAO.addStudentCourses(sc6);
-
-
-
-
-
-
     }
 
 }
