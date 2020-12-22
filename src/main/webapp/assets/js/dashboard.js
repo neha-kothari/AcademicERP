@@ -167,52 +167,9 @@ async function applyFilter(submitApi, dropdownFields) {
     let response = await fetch(submitApi).catch(err => {
         console.log(err)
     });
-    if (mockData) {
-        courseData = [
-            {
-                course_id: 'id1',
-                name: 'Course 1',
-                description: 'Description 1',
-                credits: '1',
-                term: 'Term 1',
-                course_code: 'Code 1',
-                year: '2021',
-                capacity: '101',
-                faculty_name: '1,2,3,11',
-                domains: 'D3, D2, D11',
-                specialisations: 'S3, S2, S1'
-            },
-            {
-                course_id: 'id2',
-                name: 'Course 2',
-                description: 'Description 2',
-                credits: '2',
-                term: 'Term 2',
-                course_code: 'Code 2',
-                year: '2022',
-                capacity: '102',
-                faculty_name: '1,2,3,12',
-                domains: 'D3, D2, D12',
-                specialisations: 'S3, S2, S2'
-            },
-            {
-                course_id: 'id3',
-                name: 'Course 3',
-                description: 'Description 3',
-                credits: '3',
-                term: 'Term 3',
-                course_code: 'Code 3',
-                year: '2023',
-                capacity: '103',
-                faculty_name: '1,2,3,13',
-                domains: 'D3, D2, D13',
-                specialisations: 'S3, S2, S3'
-            }
-        ]
-    } else {
-        courseData = await response.json(); // read response body and parse as JSON
-    }
+    courseData = await response.json(); // read response body and parse as JSON
     populateTable(courseData);
+
 }
 
 function populateTable(courseData) {
@@ -233,7 +190,7 @@ async function fetchStudentsGrades(course_id) {
     //console.log(course_id);
     //alert(course_id);
     let studentData;
-    let response = await fetch("/api/courses/"+course_id+"/students").catch(err => {
+    let response = await fetch("api/courses/"+course_id+"/students").catch(err => {
         console.log(err)
     });
     studentData = await response.json(); // read response body and parse as JSON
@@ -249,7 +206,7 @@ function init() {
                 data: 'course_id',
                 "render": function (data, type, row, meta) {
                     if (type === 'display') {
-                      data = '<a data-toggle="modal" data-target="#gradeModal" onclick="callCourse('+data+')">'+ data + '</a>';
+                        data = '<a data-toggle="modal" data-target="#gradeModal" onclick="callCourse('+data+')">'+ data + '</a>';
                     }
 
                     return data;

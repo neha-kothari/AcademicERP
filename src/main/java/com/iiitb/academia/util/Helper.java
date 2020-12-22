@@ -165,9 +165,9 @@ public class Helper {
         Courses cMML = coursesDAO.fetchCourseDetailsById(4);
 
             Students s1 = new Students( 1, "Cedric", "Diggory","cedric.diggory@iiitb.org", null, 4.0f, 12, 2020, MtechCSE, sAI, null);
-            Students s2 = new Students( 1, "Harry", "Potter","harry.potter@iiitb.org", null, 3.2f, 8, 2021, MtechECE, sNC, null);
-            Students s3 = new Students( 1, "Ronald", "Weasley","ronald.weasley@iiitb.org", null, 3.0f, 8, 2021, MSECE, sEC, null);
-            Students s4 = new Students( 1, "Neville", "Longbottom","neville.longbottom@iiitb.org", null, 3.1f, 4, 2022, MSCSE, sCS, null);
+            Students s2 = new Students( 2, "Harry", "Potter","harry.potter@iiitb.org", null, 3.2f, 8, 2021, MtechECE, sNC, null);
+            Students s3 = new Students( 3, "Ronald", "Weasley","ronald.weasley@iiitb.org", null, 3.0f, 8, 2021, MSECE, sEC, null);
+            Students s4 = new Students( 4, "Neville", "Longbottom","neville.longbottom@iiitb.org", null, 3.1f, 4, 2022, MSCSE, sCS, null);
             //not adding Hermione because she would be a student at IIT-Bombay and not IIIT-B
             StudentDAO studentDAO = new StudentDAOImpl();
             studentDAO.addStudent(s1);

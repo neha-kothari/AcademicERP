@@ -32,6 +32,9 @@ public class EmployeesController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployeesByEmail(@PathParam("email") String email) {
         Employees employees =employeesService.fetchEmployeeDetailsByEmail(email);
+        if(employees == null){
+            return Response.noContent().build();
+        }
         return Response.ok().entity(employees).build();
     }
 
