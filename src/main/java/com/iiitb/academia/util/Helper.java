@@ -9,11 +9,12 @@ import java.util.List;
 
 public class Helper {
 
-    /**public static void main(String[] args) {
+    public static void main(String[] args) {
 
         System.out.println("Heyy from helper");
-        populateDummyData();
-    }*/
+        populateStudentCourses();
+        //populateDummyData();
+    }
 
     public static void populateDummyData(){
         populateGrades();
@@ -144,6 +145,7 @@ public class Helper {
         coursesDAO.registerCourse(c4);
     }
 
+
     private static void populateStudents() {
 
         DomainsDAO domainsDAO = new DomainsDAOImpl();
@@ -179,6 +181,48 @@ public class Helper {
     }
 
     private static void populateStudentCourses(){
+
+        StudentDAO studentDAO= new StudentDAOImpl();
+        Students s1=studentDAO.fetchStudentDetailsById(1);
+        Students s2=studentDAO.fetchStudentDetailsById(8);
+        Students s3=studentDAO.fetchStudentDetailsById(9);
+        Students s4=studentDAO.fetchStudentDetailsById(10);
+
+        CoursesDAO coursesDAO = new CoursesDAOImpl();
+        Courses cAlgo = coursesDAO.fetchCourseDetailsById(1);
+        Courses cSS = coursesDAO.fetchCourseDetailsById(2);
+        Courses cCN = coursesDAO.fetchCourseDetailsById(3);
+        Courses cMML = coursesDAO.fetchCourseDetailsById(4);
+
+        GradesDAO gradesDAO = new GradesDAOImpl();
+        Grades g1= gradesDAO.getGradeDetailsById(1);
+        Grades g2= gradesDAO.getGradeDetailsById(2);
+        Grades g3= gradesDAO.getGradeDetailsById(3);
+        Grades g4= gradesDAO.getGradeDetailsById(4);
+        Grades g5= gradesDAO.getGradeDetailsById(5);
+        Grades g6= gradesDAO.getGradeDetailsById(6);
+
+        Student_CoursesDAO student_coursesDAO= new Student_CoursesDAOImpl();
+
+        Student_Courses sc1= new Student_Courses(s1,cAlgo,g1,"None");
+        Student_Courses sc2= new Student_Courses(s2,cAlgo,g3,"None");
+        Student_Courses sc3= new Student_Courses(s2,cCN,g2,"None");
+        Student_Courses sc4= new Student_Courses(s4,cMML,g4,"None");
+        Student_Courses sc5= new Student_Courses(s4,cSS,g1,"None");
+        Student_Courses sc6= new Student_Courses(s3,cMML,g5,"None");
+
+
+        student_coursesDAO.addStudentCourses(sc1);
+        student_coursesDAO.addStudentCourses(sc2);
+        student_coursesDAO.addStudentCourses(sc3);
+        student_coursesDAO.addStudentCourses(sc4);
+        student_coursesDAO.addStudentCourses(sc5);
+        student_coursesDAO.addStudentCourses(sc6);
+
+
+
+
+
 
     }
 
